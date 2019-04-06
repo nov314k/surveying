@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['generate-frame.py'],
-             pathex=['e:\\dev\\3\\waiata'],
+             pathex=['e:\\dev\\3\\surveying\\generate-frame'],
              binaries=[],
              datas=[],
              hiddenimports=[],

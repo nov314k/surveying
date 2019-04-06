@@ -63,16 +63,14 @@ y_text_alignment = file['settings']['y_text_alignment']
 save_as_filename = file['settings']['save_as_filename']
 
 text_height = file['settings']['text_height']
-text_height = text_height * max(frame_width, frame_height) / 100
-digit_width_ratio = file['settings']['digit_width_ratio']
-offset_x = (digit_width_ratio) * text_height / 100
-offset_y = offset_x
+line_to_line_spacing = file['settings']['line_to_line_spacing']
+axis_to_text_spacing = file['settings']['axis_to_text_spacing']
 tick_half_size = file['settings']['tick_half_size']
-tick_half_size = tick_half_size * max(frame_width, frame_height) / 100
+digit_width_ratio = file['settings']['digit_width_ratio']
 
 dwg.layers.new(name = layer_name, dxfattribs = {'color': 0})
 line_attribs = {'layer': layer_name}
-x_text_attribs = {'height': text_height, 'layer': layer_name, 'rotation': 90}
+x_text_attribs = {'height': text_height, 'layer': layer_name, 'rotation': 270}
 y_text_attribs = {'height': text_height, 'layer': layer_name}
 
 msp.add_line(
@@ -97,23 +95,28 @@ x_text_2 = add_leading_zeros((value_x // 1000) % 1000)
 x_text_1 = ((value_x // 1000) // 1000) % 1000
 
 msp.add_text(x_text_3, dxfattribs = x_text_attribs).set_pos(
-	(origin_x - offset_x, origin_y - 2*offset_y),
+	(origin_x + 1 * line_to_line_spacing + 1 * text_height,
+	origin_y - axis_to_text_spacing),
 	align = x_text_alignment)
 msp.add_text(x_text_2, dxfattribs = x_text_attribs).set_pos(
-	(origin_x - 2*offset_x - text_height, origin_y - 2*offset_y),
+	(origin_x + 2 * line_to_line_spacing + 2 * text_height,
+	origin_y - axis_to_text_spacing),
 	align = x_text_alignment)
 msp.add_text(x_text_1, dxfattribs = x_text_attribs).set_pos(
-	(origin_x - 3*offset_x - 2*text_height, origin_y - 2*offset_y),
+	(origin_x + 3 * line_to_line_spacing + 3 * text_height,
+	origin_y - axis_to_text_spacing),
 	align = x_text_alignment)
 
 current_position = origin_x + distance_to_first_standard_value(int(x_text_3))
-while current_position <= origin_x + frame_width:
+while current_position < origin_x + frame_width:
 	msp.add_line(
 		(current_position, origin_y),
 		(current_position, origin_y + tick_half_size),
 		dxfattribs = line_attribs)
-	msp.add_text(int(x_text_3) + current_position - origin_x, dxfattribs = x_text_attribs).set_pos(
-		(current_position - offset_x, origin_y - 2*offset_y),
+	msp.add_text(int(x_text_3) + current_position - origin_x,
+		dxfattribs = x_text_attribs).set_pos(
+		(current_position + 0.5 * text_height,
+		origin_y - axis_to_text_spacing),
 		align = x_text_alignment)
 	current_position += tick_spacing
 
@@ -122,14 +125,17 @@ x_text_3 = add_leading_zeros(value_x_max % 1000)
 x_text_2 = add_leading_zeros((value_x_max // 1000) % 1000)
 x_text_1 = ((value_x_max // 1000) // 1000) % 1000
 
-msp.add_text(x_text_3, dxfattribs = x_text_attribs).set_pos(
-	(origin_x + frame_width - offset_x, origin_y - 2*offset_y),
+msp.add_text(x_text_1, dxfattribs = x_text_attribs).set_pos(
+	(origin_x + frame_width + 3 * line_to_line_spacing + 3 * text_height,
+	origin_y - axis_to_text_spacing),
 	align = x_text_alignment)
 msp.add_text(x_text_2, dxfattribs = x_text_attribs).set_pos(
-	(origin_x + frame_width - 2*offset_x - text_height, origin_y - 2*offset_y),
+	(origin_x + frame_width + 2 * line_to_line_spacing + 2 * text_height,
+	origin_y - axis_to_text_spacing),
 	align = x_text_alignment)
-msp.add_text(x_text_1, dxfattribs = x_text_attribs).set_pos(
-	(origin_x + frame_width - 3*offset_x - 2*text_height, origin_y - 2*offset_y),
+msp.add_text(x_text_3, dxfattribs = x_text_attribs).set_pos(
+	(origin_x + frame_width + 1 * line_to_line_spacing + 1 * text_height,
+	origin_y - axis_to_text_spacing),
 	align = x_text_alignment)
 
 y_text_3 = add_leading_zeros(value_y % 1000)
@@ -137,23 +143,28 @@ y_text_2 = add_leading_zeros((value_y // 1000) % 1000)
 y_text_1 = ((value_y // 1000) // 1000) % 1000
 
 msp.add_text(y_text_3, dxfattribs = y_text_attribs).set_pos(
-	(origin_x + frame_width + 2 * offset_x, origin_y + offset_y),
+	(origin_x + frame_width + axis_to_text_spacing,
+	origin_y + 1 * line_to_line_spacing + 1 * text_height),
 	align = y_text_alignment)
 msp.add_text(y_text_2, dxfattribs = y_text_attribs).set_pos(
-	(origin_x + frame_width + 2 * offset_x, origin_y + 2 * offset_y + text_height),
+	(origin_x + frame_width + axis_to_text_spacing,
+	origin_y + 2 * line_to_line_spacing + 2 * text_height),
 	align = y_text_alignment)
 msp.add_text(y_text_1, dxfattribs = y_text_attribs).set_pos(
-	(origin_x + frame_width + 2 * offset_x, origin_y + 3 * offset_y + 2*text_height),
+	(origin_x + frame_width + axis_to_text_spacing,
+	origin_y + 3 * line_to_line_spacing + 3 * text_height),
 	align = y_text_alignment)
 
 current_position = origin_y + distance_to_first_standard_value(int(y_text_3))
-while current_position <= origin_y + frame_height:
+while current_position < origin_y + frame_height:
 	msp.add_line(
 		(origin_x + frame_width - tick_half_size, current_position),
 		(origin_x + frame_width, current_position),
 		dxfattribs = line_attribs)
-	msp.add_text(int(y_text_3) + current_position - origin_y, dxfattribs = y_text_attribs).set_pos(
-		(origin_x	 + frame_width + 2*offset_x, current_position + offset_y),
+	msp.add_text(int(y_text_3) + current_position - origin_y,
+		dxfattribs = y_text_attribs).set_pos(
+		(origin_x + frame_width + axis_to_text_spacing,
+		current_position + 0.5 * text_height),
 		align = y_text_alignment)
 	current_position += tick_spacing
 
@@ -163,13 +174,16 @@ y_text_2 = add_leading_zeros((value_y_max // 1000) % 1000)
 y_text_1 = ((value_y_max // 1000) // 1000) % 1000
 
 msp.add_text(y_text_3, dxfattribs = y_text_attribs).set_pos(
-	(origin_x + frame_width + 2 * offset_x, origin_y + frame_height + offset_y),
+	(origin_x + frame_width + axis_to_text_spacing,
+	origin_y + frame_height + 1 * line_to_line_spacing + 1 * text_height),
 	align = y_text_alignment)
 msp.add_text(y_text_2, dxfattribs = y_text_attribs).set_pos(
-	(origin_x + frame_width + 2 * offset_x, origin_y + frame_height + 2 * offset_y + text_height),
+	(origin_x + frame_width + axis_to_text_spacing,
+	origin_y + frame_height + 2 * line_to_line_spacing + 2 * text_height),
 	align = y_text_alignment)
 msp.add_text(y_text_1, dxfattribs = y_text_attribs).set_pos(
-	(origin_x + frame_width + 2 * offset_x, origin_y + frame_height + 3 * offset_y + 2*text_height),
+	(origin_x + frame_width + axis_to_text_spacing,
+	origin_y + frame_height + 3 * line_to_line_spacing + 3 * text_height),
 	align = y_text_alignment)
 
 prefix = datetime.now().strftime('%Y-%m-%d-%H-%M-%S-')
@@ -177,4 +191,4 @@ prefix = datetime.now().strftime('%Y-%m-%d-%H-%M-%S-')
 file_name = ".\\___generated-dxfs\\" + prefix + save_as_filename
 dwg.saveas(file_name)
 print("\nDXF file generated: " + file_name + '\n')
-aux = input("Enter any key to exit: ")
+aux = input("Press Enter to exit.")
