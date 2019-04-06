@@ -1,0 +1,11 @@
+generate_frame/___generated-dxfs
+generate_frame/__pycache__
+generate_frame/_ignum
+generate_frame/build
+generate_frame/Include
+generate_frame/Lib
+generate_frame/Scripts
+generate_frame/tcl
+generate_frame/dist/_for_copying
+generate_frame/dist/_testing
+*.bak

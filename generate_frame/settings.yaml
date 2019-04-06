@@ -1,0 +1,51 @@
+settings:
+
+  # Value of the x coordinate
+  # You can use _ (underscore) as thousands separator
+  # This value is expected to be around 6_000_000
+  value_x: 6_789_925
+
+  # Value of the y coordinate
+  # You can use _ (underscore) as thousands separator
+  # This value is expected to be around 4_000_000
+  value_y: 4_321_275
+
+  # Frame border width (along x axis)
+  frame_width: 300
+
+  # Frame border height (along y axis)
+  frame_height: 200
+
+  # Layer name
+  # MUST SURROUND WITH APOSTROPHES ' & '
+  layer_name: 'OKVIR'
+
+  # File name under which to save the dxf, in the local directory
+  # MUST SURROUND WITH APOSTROPHES ' & '
+  save_as_filename: 'frame.dxf'
+
+  # Defines desired tick spacing (calculated automatically for the first tick)
+  tick_spacing: 100
+
+  # Height/width of the tick mark, measured from each axis (and then to up/down, and left/righ)
+  # ENTER VALUE AS A PERCENTAGE, E.G. 0.75 MEANS 0.75%
+  # Resulting value for drawing = tick_half_size * max(frame_width, frame_height) / 100
+  tick_half_size: 0.75
+
+  # Text height, AS PERCENTAGE VALUE (E.G. 1.5 MEANS 1.5%)
+  # Resulting value for drawing = text_height * max(frame_width, frame_height) / 100
+  text_height: 1.5
+
+  # Do not change unless you know what you're doing!
+  # Digit width as a (measured) ratio of digit height (further divided by 2 in code)
+  # ENTER VALUE AS A PERCENTAGE, E.G. 43 MEANS 43%
+  digit_width_ratio: 43
+
+  # Text alignment string, for x-axis labels
+  x_text_alignment: TOP_RIGHT
+
+  # Text alignment string, for y-axis labels
+  y_text_alignment: TOP_LEFT
+
+  # DWG drawing standard string (see ezdxf documentation)
+  dwg_standard: 'R2018'
