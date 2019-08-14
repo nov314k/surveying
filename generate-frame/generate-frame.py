@@ -3,11 +3,10 @@ import yaml
 from datetime import datetime
 
 
-def distance_to_first_standard_value(coord):
-    limit = 100
-    while (coord >= limit):
-        limit += 100
-    return limit - coord
+def distance_to_first_standard_value(coord, spacing):
+    while (coord >= spacing):
+        spacing += 100
+    return spacing - coord
 
 
 def add_leading_zeros(number):
@@ -45,22 +44,36 @@ if not aux:
 else:
     value_y = int(aux)
 
-aux = input("Enter frame width : ")
-if not aux:
-    frame_width = file['settings']['frame_width']
+tick_spacing = file['settings']['tick_spacing_large']
+aux = input("Do you want (L)arge, (S)mall, or (C)ustom frame size: ")
+if aux == 'L' or aux == 'l':
+    frame_width = file['settings']['frame_width_large']
+    frame_height = file['settings']['frame_height_large']
+elif aux == 'S' or aux == 's':
+    frame_width = file['settings']['frame_width_small']
+    frame_height = file['settings']['frame_height_small']
+    tick_spacing = file['settings']['tick_spacing_small']
 else:
-    frame_width = int(aux)
-
-aux = input("Enter frame height: ")
-if not aux:
-    frame_height = file['settings']['frame_height']
-else:
-    frame_height = int(aux)
+    aux = input("Enter frame width : ")
+    if not aux:
+        frame_width = file['settings']['frame_width_large']
+    else:
+        frame_width = float(aux)
+    aux = input("Enter frame height: ")
+    if not aux:
+        frame_height = file['settings']['frame_height_large']
+    else:
+        frame_height = float(aux)
+    aux = input("Enter spacing     : ")
+    if not aux:
+        tick_spacing = file['settings']['tick_spacing_large']
+    else:
+        tick_spacing = float(aux)
 
 origin_x = value_x
 origin_y = value_y
 layer_name = file['settings']['layer_name']
-tick_spacing = file['settings']['tick_spacing']
+
 x_text_alignment = file['settings']['x_text_alignment']
 y_text_alignment = file['settings']['y_text_alignment']
 save_as_filename = file['settings']['save_as_filename']
@@ -110,7 +123,7 @@ msp.add_text(x_text_1, dxfattribs=x_text_attribs).set_pos(
      origin_y - axis_to_text_spacing),
     align=x_text_alignment)
 
-current_position = origin_x + distance_to_first_standard_value(int(x_text_3))
+current_position = origin_x + distance_to_first_standard_value(int(x_text_3), tick_spacing)
 while current_position < origin_x + frame_width:
     msp.add_line(
         (current_position, origin_y),
@@ -125,8 +138,8 @@ while current_position < origin_x + frame_width:
 
 value_x_max = value_x + frame_width
 x_text_3 = add_leading_zeros(value_x_max % 1000)
-x_text_2 = add_leading_zeros((value_x_max // 1000) % 1000)
-x_text_1 = ((value_x_max // 1000) // 1000) % 1000
+x_text_2 = int(add_leading_zeros((value_x_max // 1000) % 1000))
+x_text_1 = int(((value_x_max // 1000) // 1000) % 1000)
 
 msp.add_text(x_text_1, dxfattribs=x_text_attribs).set_pos(
     (origin_x + frame_width + 3 * line_to_line_spacing + 3 * text_height,
@@ -142,8 +155,8 @@ msp.add_text(x_text_3, dxfattribs=x_text_attribs).set_pos(
     align=x_text_alignment)
 
 y_text_3 = add_leading_zeros(value_y % 1000)
-y_text_2 = add_leading_zeros((value_y // 1000) % 1000)
-y_text_1 = ((value_y // 1000) // 1000) % 1000
+y_text_2 = int(add_leading_zeros((value_y // 1000) % 1000))
+y_text_1 = int(((value_y // 1000) // 1000) % 1000)
 
 msp.add_text(y_text_3, dxfattribs=y_text_attribs).set_pos(
     (origin_x + frame_width + axis_to_text_spacing,
@@ -158,7 +171,7 @@ msp.add_text(y_text_1, dxfattribs=y_text_attribs).set_pos(
      origin_y + 3 * line_to_line_spacing + 3 * text_height),
     align=y_text_alignment)
 
-current_position = origin_y + distance_to_first_standard_value(int(y_text_3))
+current_position = origin_y + distance_to_first_standard_value(int(y_text_3), tick_spacing)
 while current_position < origin_y + frame_height:
     msp.add_line(
         (origin_x + frame_width - tick_half_size, current_position),

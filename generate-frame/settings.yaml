@@ -10,11 +10,13 @@ settings:
   # This value is expected to be around 4_000_000
   value_y: 4_939_000
 
-  # Frame border width (along x axis)
-  frame_width: 375
+  # Standard frame border width (along x axis)
+  frame_width_large: 375
+  frame_width_small: 187.5
 
-  # Frame border height (along y axis)
-  frame_height: 250
+  # Standard frame border height (along y axis)
+  frame_height_large: 250
+  frame_height_small: 125
 
   # Layer name
   # MUST SURROUND WITH APOSTROPHES ' & '
@@ -25,7 +27,8 @@ settings:
   save_as_filename: 'frame.dxf'
 
   # Defines desired tick spacing (calculated automatically for the first tick)
-  tick_spacing: 100
+  tick_spacing_large: 100
+  tick_spacing_small: 50
 
   # Height/width of the tick mark,
   # measured from each axis (and then to up/down, and left/righ)
