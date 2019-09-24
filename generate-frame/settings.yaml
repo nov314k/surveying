@@ -34,8 +34,9 @@ settings:
   # measured from each axis (and then to up/down, and left/righ)
   tick_half_size: 0.5
 
-  # Text height
-  text_height: 2.5
+  # Text heights
+  text_height_small_frame: 1.0
+  text_height_large_frame: 1.5
 
   # Line-to-line spacing
   line_to_line_spacing: 1.25

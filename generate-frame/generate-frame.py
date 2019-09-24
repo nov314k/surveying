@@ -49,9 +49,11 @@ aux = input("Do you want (L)arge, (S)mall, or (C)ustom frame size: ")
 if aux == 'L' or aux == 'l':
     frame_width = file['settings']['frame_width_large']
     frame_height = file['settings']['frame_height_large']
+    text_height = file['settings']['text_height_large_frame']
 elif aux == 'S' or aux == 's':
     frame_width = file['settings']['frame_width_small']
     frame_height = file['settings']['frame_height_small']
+    text_height = file['settings']['text_height_small_frame']
     tick_spacing = file['settings']['tick_spacing_small']
 else:
     aux = input("Enter frame width : ")
@@ -69,6 +71,7 @@ else:
         tick_spacing = file['settings']['tick_spacing_large']
     else:
         tick_spacing = float(aux)
+    text_height = file['settings']['text_height_small_frame']
 
 origin_x = value_x
 origin_y = value_y
@@ -78,7 +81,7 @@ x_text_alignment = file['settings']['x_text_alignment']
 y_text_alignment = file['settings']['y_text_alignment']
 save_as_filename = file['settings']['save_as_filename']
 
-text_height = file['settings']['text_height']
+# text_height = file['settings']['text_height']
 line_to_line_spacing = file['settings']['line_to_line_spacing']
 axis_to_text_spacing = file['settings']['axis_to_text_spacing']
 tick_half_size = file['settings']['tick_half_size']
