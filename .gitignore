@@ -7,5 +7,6 @@ generate-frame/Lib
 generate-frame/Scripts
 generate-frame/tcl
 generate-frame/dist/_for_copying
+generate-frame/dist/_for_copying_dll_pyd
 generate-frame/dist/_testing
 *.bak
